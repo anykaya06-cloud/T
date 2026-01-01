@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>New Beginning</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Georgia", serif;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(circle at center, #111, #000);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      overflow: hidden;
+    }
+
+    /* ================= ZARF ================= */
+    .envelope-wrapper {
+      cursor: pointer;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .envelope {
+      position: relative;
+      width: 260px;
+      height: 170px;
+      background: #f5f5f5;
+      border-radius: 6px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+
+    .envelope::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 130px solid transparent;
+      border-right: 130px solid transparent;
+      border-top: 85px solid #e0e0e0;
+      z-index: 2;
+    }
+
+    .envelope::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 130px solid transparent;
+      border-right: 130px solid transparent;
+      border-bottom: 85px solid #d6d6d6;
+    }
+
+    .seal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 28px;
+      height: 28px;
+      background: #111;
+      border-radius: 50%;
+      z-index: 3;
+    }
+
+    /* ================= NOT KAĞIDI ================= */
+    .note-paper {
+      display: none;
+      background: #fafafa;
+      padding: 40px 30px;
+      width: 420px;
+      text-align: center;
+      font-size: 20px;
+      line-height: 1.7;
+      border-radius: 4px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+      animation: slideUp 1.2s ease;
+      cursor: pointer;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(80px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ================= KUTU ZARFLAR ================= */
+    .grid {
+      display: none;
+      grid-template-columns: repeat(2, 220px);
+      gap: 30px;
+      animation: fadeIn 1s ease;
+    }
+
+    .mini-envelope {
+      position: relative;
+      width: 220px;
+      height: 140px;
+      background: #f5f5f5;
+      border-radius: 6px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+      cursor: pointer;
+      transition: transform 0.4s ease;
+    }
+
+    .mini-envelope:hover {
+      transform: translateY(-6px);
+    }
+
+    .mini-envelope::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 110px solid transparent;
+      border-right: 110px solid transparent;
+      border-top: 70px solid #e0e0e0;
+      z-index: 2;
+    }
+
+    .mini-envelope::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 110px solid transparent;
+      border-right: 110px solid transparent;
+      border-bottom: 70px solid #d6d6d6;
+    }
+
+    .mini-paper {
+      position: absolute;
+      inset: 12px;
+      background: #fff;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 14px;
+      font-size: 14px;
+      line-height: 1.4;
+      animation: fadeIn 0.6s ease;
+      z-index: 5;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* ================= BUTONLAR ================= */
+    .choice {
+      display: none;
+      position: absolute;
+      bottom: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      gap: 20px;
+    }
+
+    .choice button {
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.6);
+      padding: 10px 22px;
+      font-size: 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .choice button:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    /* ================= SON EKRANLAR ================= */
+    .end-text {
+      display: none;
+      color: #fff;
+      font-size: 18px;
+      animation: fadeIn 1s ease;
+    }
+
+    .end-love {
+      display: none;
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
+
+    .heart {
+      font-size: 80px;
+      color: red;
+      animation: pulse 1.4s infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    .love-text {
+      margin-top: 14px;
+      color: #fff;
+      font-size: 16px;
+    }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ANA ZARF -->
+  <div id="envelopeScreen" class="envelope-wrapper">
+    <div class="envelope">
+      <div class="seal"></div>
+    </div>
+  </div>
+
+  <!-- NOT KAĞIDI -->
+  <div id="noteScreen" class="note-paper">
+   Senenin ilk günleri taze başlangıçlar mı o zaman?<br><br>
+    <small>(Not kağıdına tekrar tıkla)</small>
+  </div>
+
+  <!-- ZARF KUTULAR -->
+  <div id="boxScreen" class="grid">
+
+    <div class="mini-envelope">
+      <div class="mini-paper">"
+        evet, sevmenin başlangıcıdır bu
+        belirsiz olsada yolun sonu
+        sevmektir güzel olan
+        artık düşünmüyorum sonu"</div>
+    </div>
+
+    <div class="mini-envelope">
+      <div class="mini-paper">
+      "şarkılar söyleyerek yaşayıp gidiyorum sana
+      sabah rüzgarının soğuk dudaklarıyla
+      her gece parlayan o yıldızım ben
+      senin gökyüzü sarayında"</div>
+    </div>
+
+  </div>
+
+  <div id="choiceScreen" class="choice">
+    <button id="okBtn">tamam mı</button>
+    <button id="continueBtn">devam mı</button>
+  </div>
+
+  <!-- TAMAM EKRANI -->
+  <div id="endOk" class="end-text">peki.</div>
+
+  <!-- DEVAM EKRANI -->
+  <div id="endLove" class="end-love">
+    <div class="heart">❤</div>
+    <div class="love-text">dünyayı eccük renklendirelim yaw</div>
+  </div>
+
+  <script>
+    const envelope = document.getElementById("envelopeScreen");
+    const note = document.getElementById("noteScreen");
+    const boxes = document.getElementById("boxScreen");
+
+    envelope.addEventListener("click", () => {
+      envelope.style.display = "none";
+      note.style.display = "block";
+    });
+
+    note.addEventListener("click", () => {
+      note.style.display = "none";
+      boxes.style.display = "grid";
+      setTimeout(() => {
+        document.getElementById("choiceScreen").style.display = "flex";
+      }, 800);
+    });
+
+    const choice = document.getElementById("choiceScreen");
+    const endOk = document.getElementById("endOk");
+    const endLove = document.getElementById("endLove");
+
+    document.getElementById("okBtn").addEventListener("click", () => {
+      boxes.style.display = "none";
+      choice.style.display = "none";
+      document.body.style.background = "#000";
+      endOk.style.display = "block";
+    });
+
+    document.getElementById("continueBtn").addEventListener("click", () => {
+      boxes.style.display = "none";
+      choice.style.display = "none";
+      document.body.style.background = "radial-gradient(circle at center, #220000, #000)";
+      endLove.style.display = "block";
+    });
+
+    document.querySelectorAll('.mini-envelope').forEach(env => {
+      env.addEventListener('click', () => {
+        env.querySelector('.mini-paper').style.display = 'flex';
+      });
+    });
+  </script>
+
+</body>
+</html>
